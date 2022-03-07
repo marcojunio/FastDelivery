@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row mt-5">
+        <div>
+            <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="login" class="form-label">Login</label>
+                    <input class="form-control" autocomplete="username" formControlName="login" type="text" name="user" id="user">
+                    <div style="color: red;" *ngIf="login?.invalid && (login?.dirty || login?.touched)">
+                        <div *ngIf="login?.errors?.['required']">
+                            Login is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="current-password" class="form-label">Password</label>
+                    <input formControlName="password" autocomplete="current-password" class="form-control" type="password" name="current-password" id="current-password">
+                    <div style="color: red;" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+                        <div *ngIf="password?.errors?.['required']">
+                            Password is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input formControlName="nome" class="form-control" type="password" name="name" id="name">
+                    <div style="color: red;" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                        <div *ngIf="name?.errors?.['required']">
+                            Name is required.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="!formRegister.valid">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
