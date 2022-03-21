@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ICommand } from '@contracts/ICommand';
-import { AuthService } from '@services/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/index.reducer';
+import { login } from '../store/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { AuthService } from '@services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formBuild: FormBuilder, @Inject(AuthService) private readonly authService: AuthService) { }
+  constructor(private formBuild: FormBuilder, private store: Store<AppState>) { }
 
   formLogin = this.formBuild.group({
     login: ['', Validators.required],
@@ -22,8 +23,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.formLogin.value as ICommand;
-    this.authService.auth(value);
+    const value = this.formLogin.value;
+    this.store.dispatch(login({ password: value.password, login: value.login }))
   }
 
   get login() {

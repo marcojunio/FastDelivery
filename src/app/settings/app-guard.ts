@@ -9,7 +9,6 @@ export class AppGuard implements CanActivate {
     constructor(private readonly authService: AuthService) { }
 
     canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        console.log('entra');
         if (this.authService.authenticated()) {
             return true;
         }

@@ -10,6 +10,10 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppHttpInterceptor } from '@settings/app-http-interceptor';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from '@store/index.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '@pages/auth/store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,9 @@ import { AppHttpInterceptor } from '@settings/app-http-interceptor';
     AppLayoutModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot(appReducer),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },

@@ -10,7 +10,8 @@
       "@settings/*":["app/settings/*"],
       "@models/*":["app/models/*"],
       "@pages/*":["app/pages/*"],
-      "@contracts/*":["app/contracts/*"]
+      "@contracts/*":["app/contracts/*"],
+      "@store/*":["app/store/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

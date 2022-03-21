@@ -15,16 +15,8 @@ export class AuthService {
         console.log(result);
     });
 
-    auth = (authUser: ICommand) => {
-        this.http.post("https://localhost:5001/api/v1/users/login", authUser).subscribe((result: any) => {
-            if (result.success) {
-                localStorage.setItem('token', result.data.token);
-                this.router.navigate(['/main']);
-            }
-            else {
-                return;
-            }
-        })
+    auth(authUser: ICommand) {
+        return this.http.post("https://localhost:5001/api/v1/users/login", authUser);
     }
 
     signin = () => this.router.navigate(["/login"]);
