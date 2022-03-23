@@ -11,7 +11,8 @@
       "@models/*":["app/models/*"],
       "@pages/*":["app/pages/*"],
       "@contracts/*":["app/contracts/*"],
-      "@store/*":["app/store/*"]
+      "@store/*":["app/store/*"],
+      "@environments/*":["environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

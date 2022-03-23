@@ -1,20 +1,25 @@
 import { Injectable } from "@angular/core";
-import { CanActivate, UrlTree } from "@angular/router";
-import { AuthService } from "@services/auth.service";
-import { Observable } from "rxjs";
+import { CanActivate, Router, UrlTree } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { isAuthenticated } from "@pages/auth/store/auth.selectors";
+import { AppState } from "@store/app.state";
+import { map, Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class AppGuard implements CanActivate {
 
-    constructor(private readonly authService: AuthService) { }
+    constructor(private store: Store<AppState>, private router: Router) { }
 
     canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (this.authService.authenticated()) {
-            return true;
-        }
-        this.authService.signin();
-        return false;
+        return this.store.select(isAuthenticated)
+            .pipe(
+                map((authenticated) => {
+                    if (!authenticated) {
+                        return this.router.createUrlTree(['/login']);
+                    }
+
+                    return true;
+                })
+            );
     }
-
-
 }

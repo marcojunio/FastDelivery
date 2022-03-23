@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@pages/auth/store/auth.selectors';
+import { AppState } from '@store/app.state';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
+
+  userAuthenticated$ = this.store.select(isAuthenticated);
 
   ngOnInit(): void {
   }
 
+  logout() {
+
+  }
 }

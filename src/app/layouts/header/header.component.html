@@ -21,7 +21,7 @@
 
             <app-nav></app-nav>
 
-            <div>
+            <div *ngIf="!(userAuthenticated$ | async); else authenticated">
                 <button type="button" routerLink="/login" class="btn btn-outline-light me-2">
                     Login
                 </button>
@@ -29,6 +29,13 @@
                     Sign-up
                 </button>
             </div>
+
+            <ng-template #authenticated>
+                <button type="button" (click)="logout()" class="btn btn-outline-light me-2">
+                    Logout
+                </button>
+            </ng-template>
+
         </div>
     </div>
 </header>

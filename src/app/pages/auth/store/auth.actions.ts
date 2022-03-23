@@ -10,5 +10,15 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
     `${TEMPLATE_AUTH_ACTION}LOGIN_SUCCESS`,
-    props<{ token: string }>()
+    props<{ token: string, name: string }>()
+)
+
+export const createUser = createAction(
+    `${TEMPLATE_AUTH_ACTION}CREATE_USER`,
+    props<{ login: string, password: string, nome: string }>()
+)
+
+export const createUserSuccess = createAction(
+    `${TEMPLATE_AUTH_ACTION}CREATE_USER_SUCCESS`,
+    props<{ id: string }>()
 )

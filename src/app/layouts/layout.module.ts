@@ -6,6 +6,7 @@ import { LayoutComponent } from '@layout/layout/layout.component';
 import { NavComponent } from '@layout/nav/nav.component';
 import { LayoutMainComponent } from '@layout/layout-main/layout-main.component';
 import { HeaderComponent } from '@layout/header/header.component';
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { HeaderComponent } from '@layout/header/header.component';
         HeaderComponent
     ],
     imports: [
-        RouterModule
+        RouterModule,
+        CommonModule
     ]
 })
 

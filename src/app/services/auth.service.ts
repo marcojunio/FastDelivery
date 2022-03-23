@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { ICommand } from '@contracts/ICommand';
@@ -6,14 +6,14 @@ import { ICommand } from '@contracts/ICommand';
 @Injectable({ providedIn: "root" })
 export class AuthService {
 
-    constructor(@Inject(HttpClient) private readonly http: HttpClient, @Inject(Router) private readonly router: Router) {
+    constructor(private http: HttpClient, private router: Router) {
 
     }
 
 
-    create = (createUser: ICommand) => this.http.post("https://localhost:5001/api/v1/users", createUser).subscribe((result: any) => {
-        console.log(result);
-    });
+    create(createUser: ICommand) {
+        return this.http.post("https://localhost:5001/api/v1/users", createUser)
+    };
 
     auth(authUser: ICommand) {
         return this.http.post("https://localhost:5001/api/v1/users/login", authUser);
@@ -22,11 +22,11 @@ export class AuthService {
     signin = () => this.router.navigate(["/login"]);
 
     signout() {
-        localStorage.clear();
+        localStorage.removeItem('user-person');
         this.signin();
     }
 
-    token = () => localStorage.getItem("token");
-
-    authenticated = (): boolean => this.token() !== null;
+    createStorage(user: { token: string, name: string }) {
+        localStorage.setItem('user-person', JSON.stringify(user));
+    }
 }

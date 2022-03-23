@@ -11,9 +11,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppHttpInterceptor } from '@settings/app-http-interceptor';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from '@store/index.reducer';
+import { appReducer } from '@store/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@pages/auth/store/auth.effects';
+import { environment } from '@environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,11 @@ import { AuthEffects } from '@pages/auth/store/auth.effects';
     AppRoutingModule,
     AppLayoutModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES),
     BrowserAnimationsModule,
+    RouterModule.forRoot(ROUTES),
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(appReducer),
+    [!environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : []]
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },

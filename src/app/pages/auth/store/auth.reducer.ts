@@ -7,7 +7,8 @@ const _authReducer = createReducer(
     on(loginSuccess, (state, action) => {
         return {
             ...state,
-            token: action.token
+            token: action.token,
+            authenticated: action.token != null
         };
     }),
 );

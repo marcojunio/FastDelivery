@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ICommand } from '@contracts/ICommand';
-import { AuthService } from '@services/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/app.state';
+import { createUser } from '../store/auth.actions';
 
 @Component({
   selector: 'app-register-user',
@@ -10,7 +11,7 @@ import { AuthService } from '@services/auth.service';
 })
 export class RegisterUserComponent implements OnInit {
 
-  constructor(private formBuild: FormBuilder, @Inject(AuthService) private readonly authService: AuthService) { }
+  constructor(private formBuild: FormBuilder, private store: Store<AppState>) { }
 
   formRegister = this.formBuild.group({
     login: ['', Validators.required],
@@ -23,8 +24,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.formRegister.value as ICommand;
-    this.authService.create(value);
+    const value = this.formRegister.value;
+    this.store.dispatch(createUser({ login: value.login, nome: value.nome, password: value.password }))
   }
 
   get login() {

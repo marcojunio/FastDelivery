@@ -1,9 +1,9 @@
 export interface AuthState {
     authenticated?: boolean;
-    userId?: string | null;
+    token?: string | null;
 }
 
 export const initialState: AuthState = {
-    userId: null,
+    token: null,
     authenticated: false
 }
