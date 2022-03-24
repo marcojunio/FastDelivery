@@ -22,3 +22,7 @@ export const createUserSuccess = createAction(
     `${TEMPLATE_AUTH_ACTION}CREATE_USER_SUCCESS`,
     props<{ id: string }>()
 )
+
+export const logoutUser = createAction(
+    `${TEMPLATE_AUTH_ACTION}LOGOUT`,
+)

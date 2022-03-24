@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '@pages/auth/store/auth.effects';
 import { environment } from '@environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     RouterModule.forRoot(ROUTES),
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(appReducer),
-    [!environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : []]
+    [!environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : []],
+    SharedModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },
